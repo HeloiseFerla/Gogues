@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  height: 80px;
+  width: 100%;
+  align-items: center;
+  padding: 0 10vw;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+}
+
+.logo span {
+  font-family: var(--font-logo);
+  font-size: 2.5rem;
+}
+
+.connexion {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  .logo {
+    margin: 0;
+  }
+
+  .connexion {
+    display: flex;
+    width: 150px;
+    height: 35px;
+    background: #fe9d79;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .connexion span {
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .connexion svg {
+    height: 20px;
+    width: auto;
+    padding-right: 0.5rem;
+  }
+}

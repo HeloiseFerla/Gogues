@@ -1,0 +1,24 @@
+.navMenu {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  .navMenu {
+    display: flex;
+    margin: auto;
+  }
+
+  .navMenu ul {
+    display: flex;
+  }
+
+  .navMenu ul li {
+    margin: 0 2vw;
+  }
+
+  .navMenu ul li a {
+    font-family: var(--font-text);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
