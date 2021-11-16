@@ -1,0 +1,49 @@
+.navMenu {
+  display: none;
+}
+
+.showMenu {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  padding-top: 80px;
+  left: 0;
+  text-align: center;
+  background-color: #8f94b92a;
+}
+
+.showMenu ul {
+  margin-top: 15vh;
+}
+
+.showMenu ul li {
+  margin: 3vh;
+}
+
+.showMenu ul li a {
+  font-family: var(--font-text);
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .navMenu {
+    display: flex;
+    margin: auto;
+  }
+
+  .navMenu ul {
+    display: flex;
+  }
+
+  .navMenu ul li {
+    margin: 0 2vw;
+  }
+
+  .navMenu ul li a {
+    font-family: var(--font-text);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
