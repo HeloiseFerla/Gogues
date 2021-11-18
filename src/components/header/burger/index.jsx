@@ -12,9 +12,9 @@ export default function Burger({ setBurgerOpen, burgerOpen }) {
       className={` ${burgerOpen ? 'burger open' : 'burger'}`}
       type="button"
     >
-      <div className="burgerLines " />
-      <div className="burgerLines  " />
-      <div className="burgerLines " />
+      <span className="burgerLines" />
+      <span className="burgerLines" />
+      <span className="burgerLines" />
     </button>
   );
 }

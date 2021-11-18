@@ -11,6 +11,7 @@
 }
 
 .burgerLines {
+  display: block;
   width: 2rem;
   height: 0.2rem;
   border-radius: 20px;
@@ -19,17 +20,17 @@
   transition: 0.5s ease-in-out;
 }
 
-.burger.open div:first-child {
+.burger.open span:first-child {
   transform-origin: left top;
   transform: rotate(41deg);
 }
 
-.burger.open div:nth-child(2) {
+.burger.open span:nth-child(2) {
   opacity: 0;
   transform: translateX(20px);
 }
 
-.burger.open div:nth-child(3) {
+.burger.open span:nth-child(3) {
   transform: rotate(-41deg);
   transform-origin: left bottom;
 }
