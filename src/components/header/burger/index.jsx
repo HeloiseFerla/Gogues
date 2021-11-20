@@ -1,21 +1,17 @@
 import PropTypes from 'prop-types';
 
-import './style.css';
+import SBurger from './style';
 
 export default function Burger({ setBurgerOpen, burgerOpen }) {
   const toggleBurger = () => {
     setBurgerOpen(!burgerOpen);
   };
   return (
-    <button
-      onClick={toggleBurger}
-      className={` ${burgerOpen ? 'burger open' : 'burger'}`}
-      type="button"
-    >
-      <span className="burgerLines" />
-      <span className="burgerLines" />
-      <span className="burgerLines" />
-    </button>
+    <SBurger onClick={toggleBurger} open={burgerOpen}>
+      <span />
+      <span />
+      <span />
+    </SBurger>
   );
 }
 

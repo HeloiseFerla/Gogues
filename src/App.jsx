@@ -1,13 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
+import { Reset } from 'styled-reset';
+import GlobalStyle from 'style';
 import Home from './components/home';
 import Header from './components/header';
 import Bars from './components/bars';
 import Restaurants from './components/restaurants';
-import './style.css';
 
 function App() {
   return (
     <>
+      <Reset />
+      <GlobalStyle />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

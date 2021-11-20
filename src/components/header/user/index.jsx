@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types';
-import './style.css';
+import SUser from './style';
 
 export default function User({ burgerOpen }) {
   return (
-    <button
-      className={` ${burgerOpen ? 'burgerCo' : 'connexion'}`}
-      type="button"
-    >
+    <SUser burgerOpen={burgerOpen}>
       <svg
         aria-label="Icône connexion"
         aria-hidden="true"
@@ -24,7 +21,7 @@ export default function User({ burgerOpen }) {
         />
       </svg>
       <span>Connexion</span>
-    </button>
+    </SUser>
   );
 }
 User.propTypes = {
