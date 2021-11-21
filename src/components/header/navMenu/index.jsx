@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SNavMenu from './style';
 
@@ -6,13 +7,28 @@ export default function NavMenu({ burgerOpen }) {
     <SNavMenu burgerOpen={burgerOpen}>
       <ul>
         <li>
-          <a href="/">Accueil</a>
+          <NavLink
+            className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+            to="/"
+          >
+            Accueil
+          </NavLink>
         </li>
         <li>
-          <a href="/Bars">Bars</a>
+          <NavLink
+            className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+            to="/Bars"
+          >
+            Bars
+          </NavLink>
         </li>
         <li>
-          <a href="/Restaurants">Restaurants</a>
+          <NavLink
+            className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+            to="/Restaurants"
+          >
+            Restaurants
+          </NavLink>
         </li>
       </ul>
     </SNavMenu>

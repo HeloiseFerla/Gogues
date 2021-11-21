@@ -16,9 +16,25 @@ const SNavMenu = styled.nav`
 
     li {
       margin: 3vh;
-      a {
+
+      .inactive,
+      .active {
         font-weight: bold;
         font-size: 1.8rem;
+        position: relative;
+
+        &.active::before {
+          position: absolute;
+          bottom: -7px;
+          left: 25%;
+          right: 25%;
+          content: '';
+          width: 40%;
+          height: 2.5px;
+          background-color: black;
+          border-radius: 8px 8px 0px 0px;
+          margin: auto;
+        }
       }
     }
   }
@@ -38,7 +54,8 @@ const SNavMenu = styled.nav`
       li {
         margin: auto 2vw;
 
-        a {
+        .inactive,
+        .active {
           font-family: var(--font-text);
           font-weight: bold;
           font-size: 1.2rem;
