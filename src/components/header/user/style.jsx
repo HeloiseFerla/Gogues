@@ -11,13 +11,12 @@ const SUser = styled.button`
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-
   position: ${(props) => (props.burgerOpen ? 'absolute' : '')};
-
   top: 60vh;
   margin: ${(props) => (props.burgerOpen ? '0 auto' : '')};
   left: 0px;
   right: 0px;
+  z-index: 3;
 
   svg {
     height: 20px;
@@ -27,24 +26,19 @@ const SUser = styled.button`
     display: ${(props) => (props.burgerOpen ? 'block' : 'none')};
     color: white;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 1rem;
   }
 
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 700px) {
     display: flex;
     width: 150px;
     height: 35px;
-    align-items: center;
-    justify-content: center;
 
     svg {
       padding-right: 0.5rem;
     }
     span {
       display: block;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
     }
   }
 `;

@@ -11,7 +11,7 @@ export default function Header() {
     <SHeader>
       <Burger burgerOpen={burgerOpen} setBurgerOpen={setBurgerOpen} />
       <a href="/" aria-label="Lien vers la page d'accueil">
-        <span>Gogues</span>
+        <span className="logo">Gogues</span>
       </a>
       <NavMenu burgerOpen={burgerOpen} />
       {burgerOpen ? <User burgerOpen={burgerOpen} /> : null}
