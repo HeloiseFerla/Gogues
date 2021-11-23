@@ -6,7 +6,6 @@ const SUserBtn = styled.button`
   color: white;
   width: ${(props) => (props.burgerOpen ? '150px' : '2.2rem')};
   height: ${(props) => (props.burgerOpen ? '35px' : '2.2rem')};
-  border: none;
   border-radius: 30px;
   align-items: center;
   justify-content: center;
