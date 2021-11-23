@@ -75,7 +75,7 @@ const SHome = styled.main`
       grid-template-columns: 1fr 1fr;
       grid-template-rows: calc(30vh - 80px) 70vh;
       text-align: left;
-      margin: auto 5vw;
+      padding-left: 5vw;
       h1 {
         grid-row: 1 / span 1;
         padding: 0;
