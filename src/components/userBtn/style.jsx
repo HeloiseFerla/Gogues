@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const SUser = styled.button`
-  display: ${(props) => (props.burgerOpen ? 'flex' : '')};
+const SUserBtn = styled.button`
+  display: ${(p) => (p.burgerOpen || p.homeBtn ? 'flex' : '')};
   background: var(--color-flash);
   color: white;
   width: ${(props) => (props.burgerOpen ? '150px' : '2.2rem')};
@@ -17,13 +17,24 @@ const SUser = styled.button`
   left: 0px;
   right: 0px;
   z-index: 3;
-
+  &.homeBtn {
+    display: flex;
+    width: 150px;
+    height: 35px;
+    margin: auto;
+    svg {
+      padding-right: 0.5rem;
+    }
+    span {
+      display: block;
+    }
+  }
   svg {
     height: 20px;
     padding-right: ${(props) => (props.burgerOpen ? '0.5rem' : '0px')};
   }
   span {
-    display: ${(props) => (props.burgerOpen ? 'block' : 'none')};
+    display: ${(p) => (p.burgerOpen || p.homeBtn ? 'block' : 'none')};
     color: white;
     font-weight: bold;
     font-size: 1rem;
@@ -42,20 +53,5 @@ const SUser = styled.button`
     }
   }
 `;
-/*
 
-
-.burgerCo span {
-  display: block;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.burgerCo svg {
-  padding-right: 0.5rem;
-  height: 20px;
-}
-
-*/
-export default SUser;
+export default SUserBtn;

@@ -12,8 +12,9 @@ const GlobalStyle = createGlobalStyle`
   --font-titles: 'Anton', sans-serif;
   --font-text: 'Roboto', sans-serif;
   --color-flash: #ff5945;
-  --color-light: #f0daff;
+  --color-light: #ddd5e6;
   --color-dark: #36465c;
+  --color-border:#c0c0c0;
   }
 
   .flash{
@@ -42,11 +43,15 @@ const GlobalStyle = createGlobalStyle`
 
   h2{
     font-size: 1.5rem;
+    margin-bottom:5vh;
   }
-
+  h3{
+    margin-bottom:2vh;
+  }
   
   section{
-    margin:10vw;
+    padding:10vw;
+    
   }
 
   a {

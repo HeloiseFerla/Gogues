@@ -6,7 +6,8 @@ const SHeader = styled.header`
   width: 100%;
   align-items: center;
   padding: 0 10vw;
-  border-bottom: 1px solid #c0c0c0;
+  border-bottom: 1px solid var(--color-border);
+
   a {
     margin: 0 auto;
     z-index: 4;

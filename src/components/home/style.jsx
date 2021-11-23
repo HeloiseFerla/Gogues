@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const home = styled.main`
+const SHome = styled.main`
   .presentation {
     display: grid;
     width: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: calc(40vh - 80px) 20vh 40vh 60vh;
-    margin: 0;
+    padding: 0;
     text-align: center;
 
     h1 {
@@ -25,7 +25,7 @@ const home = styled.main`
       z-index: 1;
     }
     .text {
-      margin: auto 5vw;
+      margin: auto 10vw;
       grid-column: 1 / span 1;
       grid-row: 4 /5;
       font-size: 1.3rem;
@@ -35,6 +35,38 @@ const home = styled.main`
       p:nth-child(3),
       p:nth-child(5) {
         padding: 1rem;
+      }
+    }
+  }
+  .steps {
+    background-color: var(--color-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 2rem;
+    article {
+      width: 60vw;
+      border-radius: 10px;
+      margin-bottom: 5vh;
+      padding: 1rem;
+      background-color: white;
+      text-align: center;
+
+      img.svg {
+        height: 30px;
+        width: 30px;
+        margin: 1rem;
+      }
+      img.png {
+        height: 100px;
+        width: auto;
+        margin: 1rem;
+      }
+      .homeBtn {
+        display: flex;
+      }
+      p {
+        text-align: center;
       }
     }
   }
@@ -69,6 +101,26 @@ const home = styled.main`
         }
       }
     }
+    .steps {
+      flex-flow: row wrap;
+      justify-content: space-around;
+      h2 {
+        width: 100vw;
+      }
+      article {
+        height: 30vh;
+        width: 30vw;
+        display: flex;
+        justify-content: center;
+        flex-flow: row wrap;
+        h3 {
+          width: 100%;
+        }
+        p {
+          width: 100%;
+        }
+      }
+    }
   }
 `;
-export default home;
+export default SHome;
