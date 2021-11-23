@@ -3,13 +3,15 @@ import styled from 'styled-components';
 const SNavMenu = styled.nav`
   display: ${(prop) => (prop.burgerOpen ? 'block' : 'none')};
   position: fixed;
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  height: 80vh;
+  width: 100vw;
   top: 0;
   padding-top: 80px;
   left: 0;
   text-align: center;
-  background-color: #8f94b92a;
+  background-color: var(--color-light);
+  z-index: 3;
 
   ul {
     margin-top: 15vh;
@@ -38,7 +40,7 @@ const SNavMenu = styled.nav`
       }
     }
   }
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 700px) {
     position: static;
     display: flex;
     height: 80px;
