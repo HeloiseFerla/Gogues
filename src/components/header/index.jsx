@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import NavMenu from './navMenu';
 import Burger from './burger';
-import User from './user';
+import UserBtn from '../userBtn';
 import SHeader from './style';
 
 export default function Header() {
@@ -11,11 +11,11 @@ export default function Header() {
     <SHeader>
       <Burger burgerOpen={burgerOpen} setBurgerOpen={setBurgerOpen} />
       <a href="/" aria-label="Lien vers la page d'accueil">
-        <span>Gogues</span>
+        <span className="logo">Gogues</span>
       </a>
       <NavMenu burgerOpen={burgerOpen} />
-      {burgerOpen ? <User burgerOpen={burgerOpen} /> : null}
-      <User />
+      {burgerOpen ? <UserBtn burgerOpen={burgerOpen} /> : null}
+      <UserBtn burgerOpen={burgerOpen} />
     </SHeader>
   );
 }
