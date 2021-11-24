@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import NavMenu from './navMenu';
 import Burger from './burger';
@@ -10,9 +11,9 @@ export default function Header() {
   return (
     <SHeader>
       <Burger burgerOpen={burgerOpen} setBurgerOpen={setBurgerOpen} />
-      <a href="/" aria-label="Lien vers la page d'accueil">
+      <Link to="/" aria-label="Lien vers l'accueil">
         <span className="logo">Gogues</span>
-      </a>
+      </Link>
       <NavMenu burgerOpen={burgerOpen} />
       {burgerOpen ? <UserBtn burgerOpen={burgerOpen} /> : null}
       <UserBtn burgerOpen={burgerOpen} />
