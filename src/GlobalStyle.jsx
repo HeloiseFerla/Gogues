@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   --font-titles: 'Anton', sans-serif;
   --font-text: 'Roboto', sans-serif;
   --color-flash: #ff5945;
-  --color-light: #ddd5e6;
+  --color-light: #eeeeee;
   --color-dark: #36465c;
   --color-border:#c0c0c0;
   }
