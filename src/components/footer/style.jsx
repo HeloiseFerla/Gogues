@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const SFooter = styled.footer`
+  position: fixed;
+  bottom: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
