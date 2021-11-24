@@ -2,7 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   * {
-
     color: black;
     box-sizing: border-box;
   }
@@ -15,6 +14,11 @@ const GlobalStyle = createGlobalStyle`
   --color-light: #eeeeee;
   --color-dark: #36465c;
   --color-border:#c0c0c0;
+  
+  }
+
+  main{
+    min-height: calc(100vh - 80px - 80px);
   }
 
   .flash{
