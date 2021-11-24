@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import NavMenu from './navMenu';
-import Burger from './burger';
-import UserBtn from '../userBtn';
+import NavMenu from './NavMenu';
+import Burger from './Burger';
+import UserBtn from '../UserBtn';
 import SHeader from './style';
 
 export default function Header() {

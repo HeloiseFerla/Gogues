@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import SBurger from './style';
 
 export default function Burger({ setBurgerOpen, burgerOpen }) {

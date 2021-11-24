@@ -1,4 +1,4 @@
-import UserBtn from '../userBtn';
+import UserBtn from '../UserBtn';
 import SHome from './style';
 import toilet from '../../assets/toilet2.jpeg';
 import bar from '../../assets/bar.svg';
