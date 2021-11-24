@@ -5,7 +5,8 @@ import Home from './components/home';
 import Header from './components/header';
 import Bars from './components/bars';
 import Restaurants from './components/restaurants';
-import STopBtn from './components/topBtn';
+import TopBtn from './components/topBtn';
+import Footer from './components/footer';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         <Route path="restaurants" element={<Restaurants />} />
         <Route path="bars" element={<Bars />} />
       </Routes>
-      <STopBtn />
+      <TopBtn />
+      <Footer />
     </>
   );
 }
