@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 const SHome = styled.main`
+  .presentation,
+  .steps {
+    padding: 10vw;
+  }
+
   .presentation {
     display: grid;
     width: 100%;
@@ -38,12 +43,15 @@ const SHome = styled.main`
       }
     }
   }
+
   .steps {
     background-color: var(--color-light);
     display: flex;
     flex-direction: column;
     align-items: center;
     line-height: 2rem;
+    justify-content: center;
+
     article {
       width: 60vw;
       border-radius: 10px;

@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
       font-family: var(--font-logo);
   }
 
-  h1,h2,h3{
+  h1,h2,h3, h4{
     font-family:var(--font-titles);
     display:flex;
     justify-content:center;
@@ -52,12 +52,9 @@ const GlobalStyle = createGlobalStyle`
   h3{
     margin-bottom:2vh;
   }
-  
-  section{
-    padding:10vw;
-    
-  }
-
+  h4 {
+      font-size: 0.7rem;
+    }
   a {
     text-decoration: none;
   }

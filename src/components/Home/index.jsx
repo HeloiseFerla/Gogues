@@ -1,12 +1,12 @@
 import UserBtn from '../UserBtn';
 import SHome from './style';
-import toilet from '../../assets/toilet2.jpeg';
+import Notes from '../Notes';
+import toilet from '../../assets/toilet.jpeg';
 import bar from '../../assets/bar.svg';
 import cafe from '../../assets/café.svg';
 import restaurant from '../../assets/restaurant.svg';
 import location from '../../assets/location.svg';
 import building from '../../assets/building.svg';
-import notation from '../../assets/notation.png';
 
 export default function Home() {
   return (
@@ -53,7 +53,7 @@ export default function Home() {
           <p>{`Par nom d'établissement ou par lieu `}</p>
         </article>
         <article>
-          <img className="png" src={notation} alt="icône notation" />
+          <Notes />
           <h3>Choisis un établissement et consulte les avis</h3>
         </article>
         <article>
