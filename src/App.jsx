@@ -14,13 +14,11 @@ function App() {
       <Reset />
       <GlobalStyle />
       <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="restaurants" element={<Restaurants />} />
-          <Route path="bars" element={<Bars />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="restaurants" element={<Restaurants />} />
+        <Route path="bars" element={<Bars />} />
+      </Routes>
       <TopBtn />
       <Footer />
     </>

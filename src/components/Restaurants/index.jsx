@@ -1,3 +1,9 @@
+import Map from './Map';
+
 export default function Restaurants() {
-  return <p>Restaurants</p>;
+  return (
+    <main>
+      <Map />
+    </main>
+  );
 }
