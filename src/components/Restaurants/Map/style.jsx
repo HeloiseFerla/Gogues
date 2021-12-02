@@ -5,6 +5,7 @@ const SMap = styled.div`
   height: 100%;
   .leaflet-container {
     height: 50vh;
+    width: 50vw;
   }
 `;
 
