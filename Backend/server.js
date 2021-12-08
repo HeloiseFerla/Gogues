@@ -1,12 +1,21 @@
 const express = require('express');
 const cors = require('cors');
+// const { setupRoutes } = require('./routes');
+const { setupRoutes } = require('./routes');
+const { backPort } = require('./conf');
 
 const app = express();
 
 app.use(cors());
-// recognize the incoming Request Object as a JSON Object
-app.use(express.json());
 
-app.listen(3000, () => {
-  console.log(`API root available at: http://localhost:${3000}/`);
+// // recognize the incoming Request Object as a JSON Object
+app.use(express.json());
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to gogues application.' });
+});
+
+setupRoutes(app);
+
+app.listen(backPort, () => {
+  console.log(`API root available at: http://localhost:${backPort}/`);
 });
