@@ -1,19 +1,25 @@
 const axios = require('axios');
 const { db } = require('../../conf');
 
-const overpassUrlRestaurants = 'https://overpass-api.de/api/interpreter?data=[out:json];area["name"="Lille"]->.searchArea;(node["amenity"="restaurant"](area.searchArea););out center;';
+const overpassUrl = 'https://overpass-api.de/api/interpreter?data=[out:json];area["name"="Lille"]->.city;area["name"="France"]->.country;(node["amenity"="restaurant"](area.city)(area.country););out center;';
 
-/* restaurants : array with restaurants from the overpass API (not all restaurants have an adress)
+/* Array of restaurants from the overpass API (not all restaurants have an adress)
 --> result of scrapRestaurants() */
-let restaurants = [];
-// fullRestaurants : restaurants with address --> result of checkAddress()
+let scrapedRestaurants = [];
+/* Array of restaurants without an address
+--> result of checkAddress() */
+const addressLessRestaurants = [];
+/* Array of restaurants with an address
+--> result of checkAddress() */
+const withAdressRestaurants = [];
+// All restaurants with address --> result of scrapAddresses()
 let fullRestaurants = [];
 
-// scrapRestaurants : scrapp restaurants from the overpass API (not all restaurants have an adress)
+// scrapp restaurants from the overpass API (not all restaurants have an adress)
 const scrapRestaurants = async () => {
   try {
-    const { data: { elements } } = await axios.get(overpassUrlRestaurants);
-    const properRestaurants = elements.filter((restaurant) => restaurant.tags.name)
+    const { data: { elements } } = await axios.get(overpassUrl);
+    const restaurants = elements.filter((restaurant) => restaurant.tags.name)
       .map((restaurant) => ([
         restaurant.tags.name,
         restaurant.tags['addr:city'] || null,
@@ -22,9 +28,10 @@ const scrapRestaurants = async () => {
         restaurant.tags['addr:street'] || null,
         restaurant.lat || null,
         restaurant.lon || null,
+      ]
 
-      ]));
-    restaurants = [...properRestaurants];
+      ));
+    scrapedRestaurants = [...restaurants];
   }
   catch (err) {
     console.log(err);
@@ -32,43 +39,55 @@ const scrapRestaurants = async () => {
 };
 
 /* Check for each restaurant if there is an address.
-If not, a request for API adress.data.gouv allow to complete data */
-const checkAddress = async () => {
+If false, data about restaurant and  is add toan url is add to dataGouvApiUrls array
+if true, data about restaurant is add to withAdressRestaurants array
+*/
+const checkAddress = () => {
+  scrapedRestaurants.forEach((restaurant) => {
+    if (restaurant[1] === null || restaurant[2] === null
+        || restaurant[3] === null || restaurant[4] === null) {
+      addressLessRestaurants.push(restaurant);
+    }
+    else {
+      withAdressRestaurants.push(restaurant);
+    }
+  });
+};
+
+/* Add missing address to restaurants withoutadress (addressLessRestaurants)
+ */
+
+const scrapAddresses = async () => {
   try {
-    fullRestaurants = await Promise.all(restaurants.map(async (restaurant) => {
-      if (restaurant[1] === null || restaurant[2] === null || restaurant[3] === null
-         || restaurant[4] === null) {
-        const { data: { features } } = await axios.get(`https://api-adresse.data.gouv.fr/reverse/?lon=${restaurant[6]}&lat=${restaurant[5]}`);
-        return ([
-          restaurant[0],
-          features[0].properties.city || null,
-          features[0].properties.housenumber || null,
-          features[0].properties.postcode || null,
-          features[0].properties.street || null,
-          restaurant[5] || null,
-          restaurant[6] || null,
-
-        ]);
-      }
-      return restaurant;
-    }));
+    const restaurants = [];
+    await addressLessRestaurants.reduce(async (promise, item) => {
+      await promise;
+      const { data: { features } } = await axios.get(`https://api-adresse.data.gouv.fr/reverse/?lon=${item[6]}&lat=${item[5]}`);
+      const restaurant = [
+        item[0],
+        features[0].properties.city || item[1] || null,
+        features[0].properties.housenumber || item[2] || null,
+        features[0].properties.postcode || item[3] || null,
+        features[0].properties.street || item[4] || features[0].properties.name || null,
+        item[5],
+        item[6]];
+      restaurants.push(restaurant);
+    }, Promise.resolve());
+    fullRestaurants = [...withAdressRestaurants, ...restaurants];
   }
-
   catch (err) {
     console.log(err);
   }
 };
+
 const finalRestaurants = async () => {
   try {
     await scrapRestaurants();
-    console.log(restaurants.length);
     await checkAddress();
-
+    await scrapAddresses();
+    console.log(fullRestaurants);
     // Insert into MySQL
-    await db.query(
-      'INSERT INTO restaurants (name, city, houseNumber, postcode, street, lat, lon) VALUES ? ',
-      [fullRestaurants],
-    );
+    await db.query('INSERT INTO restaurants (name, city, houseNumber, postcode, street, lat, lon) VALUES ? ', [fullRestaurants]);
   }
   catch (err) {
     console.log(err);
