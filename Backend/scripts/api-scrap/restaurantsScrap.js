@@ -1,7 +1,16 @@
 const axios = require('axios');
 const { db } = require('../../conf');
+/*
+Overpass query:
 
-const overpassUrl = 'https://overpass-api.de/api/interpreter?data=[out:json];area["name"="Lille"]->.city;area["name"="France"]->.country;(node["amenity"="restaurant"](area.city)(area.country););out center;';
+[out:json];
+area["name"="France métropolitaine"]["admin_level"="3"]->.country;
+(
+  node(area.country)["amenity"="restaurant"];
+);
+out ;
+*/
+const overpassUrl = 'https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%3Barea%5B%22name%22%3D%22France%20m%C3%A9tropolitaine%22%5D%5B%22admin%5Flevel%22%3D%223%22%5D%2D%3E%2Ecountry%3B%28node%5B%22amenity%22%3D%22restaurant%22%5D%28area%2Ecountry%29%3B%29%3Bout%3B%0A';
 
 /* Array of restaurants from the overpass API (not all restaurants have an adress)
 --> result of scrapRestaurants() */
@@ -11,10 +20,10 @@ let scrapedRestaurants = [];
 const addressLessRestaurants = [];
 /* Array of restaurants with an address
 --> result of checkAddress() */
-const withAdressRestaurants = [];
+const withAddressRestaurants = [];
 // All restaurants with address --> result of scrapAddresses()
 let fullRestaurants = [];
-
+// const fails = [];
 // scrapp restaurants from the overpass API (not all restaurants have an adress)
 const scrapRestaurants = async () => {
   try {
@@ -45,11 +54,11 @@ if true, data about restaurant is add to withAdressRestaurants array
 const checkAddress = () => {
   scrapedRestaurants.forEach((restaurant) => {
     if (restaurant[1] === null || restaurant[2] === null
-        || restaurant[3] === null || restaurant[4] === null) {
+        || restaurant[3] === null || restaurant[4] === null || restaurant[2].length > 6) {
       addressLessRestaurants.push(restaurant);
     }
     else {
-      withAdressRestaurants.push(restaurant);
+      withAddressRestaurants.push(restaurant);
     }
   });
 };
@@ -62,21 +71,58 @@ const scrapAddresses = async () => {
     const restaurants = [];
     await addressLessRestaurants.reduce(async (promise, item) => {
       await promise;
-      const { data: { features } } = await axios.get(`https://api-adresse.data.gouv.fr/reverse/?lon=${item[6]}&lat=${item[5]}`);
-      const restaurant = [
-        item[0],
-        features[0].properties.city || item[1] || null,
-        features[0].properties.housenumber || item[2] || null,
-        features[0].properties.postcode || item[3] || null,
-        features[0].properties.street || item[4] || features[0].properties.name || null,
-        item[5],
-        item[6]];
-      restaurants.push(restaurant);
+      const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${item[6]}&lat=${item[5]}`;
+      console.log(`================= ${url} =================  `);
+      // await new Promise((resolve) => setTimeout(resolve, 100));
+      let restaurant = [];
+      try {
+        const { data: { features } } = await axios.get(url);
+        if (features.length !== 0) {
+          restaurant = [
+            item[0],
+            features[0].properties.city || item[1] || null,
+            features[0].properties.housenumber || item[2] || null,
+            features[0].properties.postcode || item[3] || null,
+            features[0].properties.street || item[4] || features[0].properties.name || null,
+            item[5],
+            item[6]];
+          restaurants.push(restaurant);
+        }
+      }
+      catch (error) {
+        console.log(error);
+        // fails.push(item);
+      }
     }, Promise.resolve());
-    fullRestaurants = [...withAdressRestaurants, ...restaurants];
+    // await fails.reduce(async (promise, item) => {
+    //   await promise;
+    //   const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${item[6]}&lat=${item[5]}`;
+    //   console.log(`================= ${url} =================  `);
+    //   // await new Promise((resolve) => setTimeout(resolve, 100));
+    //   let restaurant = [];
+    //   try {
+    //     const { data: { features } } = await axios.get(url);
+    //     if (features.length !== 0) {
+    //       restaurant = [
+    //         item[0],
+    //         features[0].properties.city || item[1] || null,
+    //         features[0].properties.housenumber || item[2] || null,
+    //         features[0].properties.postcode || item[3] || null,
+    //         features[0].properties.street || item[4] || features[0].properties.name || null,
+    //         item[5],
+    //         item[6]];
+    //       restaurants.push(restaurant);
+    //     }
+    //   }
+    //   catch (error) {
+    //     console.log(error);
+    //   }
+    // }, Promise.resolve());
+
+    fullRestaurants = [...withAddressRestaurants, ...restaurants];
   }
   catch (err) {
-    console.log(err);
+    console.warn(err);
   }
 };
 
@@ -85,7 +131,8 @@ const finalRestaurants = async () => {
     await scrapRestaurants();
     await checkAddress();
     await scrapAddresses();
-    console.log(fullRestaurants);
+
+    // console.log(fails);
     // Insert into MySQL
     await db.query('INSERT INTO restaurants (name, city, houseNumber, postcode, street, lat, lon) VALUES ? ', [fullRestaurants]);
   }
