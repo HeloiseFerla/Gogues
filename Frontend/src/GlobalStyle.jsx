@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1,h2,h3, h4{
-    font-family:var(--font-titles);
+    font-family:var(--font-titles);    
     display:flex;
     justify-content:center;
     align-items: center;
@@ -51,10 +51,9 @@ const GlobalStyle = createGlobalStyle`
   }
   h3{
     margin-bottom:2vh;
+    font-size:1rem;
   }
-  h4 {
-      font-size: 0.7rem;
-    }
+
   a {
     text-decoration: none;
   }

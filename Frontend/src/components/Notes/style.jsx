@@ -7,6 +7,9 @@ const SNotes = styled.ul`
     display: flex;
     justify-content: space-between;
     line-height: 1.5rem;
+    h4 {
+      font-size: 0.7rem;
+    }
     div {
       display: flex;
       flex-direction: row;
