@@ -1,9 +1,18 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import SMap from './style';
 
 export default function Map({ results, averageLon, averageLat }) {
+  const [markers, setMarkers] = useState([]);
+
+  useEffect(() => {
+    const array = results.map((result) => {
+      return <Marker position={[result.lat, result.lon]} />;
+    });
+    setMarkers(array);
+  }, [results]);
   return (
     <SMap>
       <MapContainer
@@ -21,9 +30,7 @@ export default function Map({ results, averageLon, averageLat }) {
           zoomToBoundsOnClick={false}
           removeOutsideVisibleBounds
         >
-          {results.map((result) => {
-            return <Marker position={[result.lat, result.lon]} />;
-          })}
+          {markers}
         </MarkerClusterGroup>
       </MapContainer>
     </SMap>
