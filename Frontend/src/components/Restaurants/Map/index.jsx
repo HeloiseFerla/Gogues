@@ -9,7 +9,7 @@ export default function Map({ results, averageLon, averageLat }) {
 
   useEffect(() => {
     const array = results.map((result) => {
-      return <Marker position={[result.lat, result.lon]} />;
+      return <Marker key={results.id} position={[result.lat, result.lon]} />;
     });
     setMarkers(array);
   }, [results]);
@@ -38,7 +38,7 @@ export default function Map({ results, averageLon, averageLat }) {
 }
 
 Map.propTypes = {
-  results: PropTypes.arrayOf,
+  results: PropTypes.arrayOf(PropTypes.any),
   averageLat: PropTypes.number,
   averageLon: PropTypes.number,
 };
