@@ -1,49 +1,75 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import SMap from './style';
 
-export default function Map({ results, averageLon, averageLat }) {
+export default function Map({ city }) {
   const [markers, setMarkers] = useState([]);
+  const [results, setResults] = useState([]);
+  const [cityCoords, setCityCoords] = useState([]);
+  const [isUpdate, setIsupdate] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/restaurants?city=${city}`)
+
+      .then(({ data }) => {
+        setResults(data);
+        setIsupdate(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [city]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/cities/${city}`)
+      .then(({ data }) => {
+        setCityCoords([parseFloat(data[0].lat), parseFloat(data[0].lon)]);
+        setIsupdate(true);
+        console.log(cityCoords);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [results]);
 
   useEffect(() => {
     const array = results.map((result) => {
-      return <Marker key={results.id} position={[result.lat, result.lon]} />;
+      return <Marker key={result.id} position={[result.lat, result.lon]} />;
     });
     setMarkers(array);
   }, [results]);
+
   return (
     <SMap>
-      <MapContainer
-        preferCanvas
-        center={[averageLat, averageLon]}
-        zoom={15}
-        scrollWheelZoom
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <MarkerClusterGroup
-          showCoverageOnHover={false}
-          zoomToBoundsOnClick={false}
-          removeOutsideVisibleBounds
-        >
-          {markers}
-        </MarkerClusterGroup>
-      </MapContainer>
+      {isUpdate && (
+        <>
+          <MapContainer
+            preferCanvas
+            center={cityCoords}
+            zoom={13}
+            scrollWheelZoom
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
+            <MarkerClusterGroup chunkedLoading>{markers}</MarkerClusterGroup>
+          </MapContainer>
+        </>
+      )}
     </SMap>
   );
 }
 
 Map.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.any),
-  averageLat: PropTypes.number,
-  averageLon: PropTypes.number,
+  city: PropTypes.string,
 };
 Map.defaultProps = {
-  results: [],
-  averageLat: 0,
-  averageLon: 0,
+  city: '',
 };
