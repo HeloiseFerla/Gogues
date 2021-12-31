@@ -6,7 +6,6 @@ const SRestaurants = styled.main`
     margin-bottom: 2vh;
   }
   div.search {
-    background-color: var(--color-light);
     padding: 5vh 10vw;
     h3,
     h4 {
@@ -15,10 +14,9 @@ const SRestaurants = styled.main`
     h4 {
       font-size: 1rem;
     }
-  }
-
-  form {
-    padding: 2vh 0;
+    div {
+      padding: 2vh 0;
+    }
   }
 `;
 
