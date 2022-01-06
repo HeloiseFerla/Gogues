@@ -47,7 +47,7 @@ A marker clustering plugin for leaflet was used to avoid markers superposition o
 - A restaurants table wich is primarily the results of restaurantsScript
 - A cities table based on cities from the table restaurants which contains for each city an id and the average coordinates. 
 
-Check the file XXXX for more information.
+Check the file db.md for more information.
 
 
 ### TO DO
