@@ -30,7 +30,6 @@ export default function Map({ city }) {
       .then(({ data }) => {
         setCityCoords([parseFloat(data[0].lat), parseFloat(data[0].lon)]);
         setIsupdate(true);
-        console.log(cityCoords);
       })
       .catch((e) => {
         console.log(e);
@@ -39,7 +38,12 @@ export default function Map({ city }) {
 
   useEffect(() => {
     const array = results.map((result) => {
-      return <Marker key={result.id} position={[result.lat, result.lon]} />;
+      return (
+        <Marker
+          key={[result.lat, result.lon]}
+          position={[result.lat, result.lon]}
+        />
+      );
     });
     setMarkers(array);
   }, [results]);
