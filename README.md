@@ -31,6 +31,7 @@ In development
 - Searchbar : a search by city (required) with dynamic proposals. 
 - Map : a leaflet map center on the average latitude and longitude of the city ( average of all restaurants of the city) wich displays all restaurants of the city. By default, the city is Lille.
 A marker clustering plugin for leaflet was used to avoid markers superposition on the map. 
+- Pagination for the list of restaurants : a list of restaurants as result of search by city.
 
 #### Backend Node JS 
 - Creation of the restaurantsScript
@@ -50,8 +51,8 @@ Check the file XXXX for more information.
 
 
 ### TO DO
-- Display a list of restaurants as result of search by city next to the associated map with the name, the average note, the address.
-- Implement a pagination for the list of restaurants
+- Authentification
+- Review
 - ...
 
 
@@ -70,6 +71,10 @@ Login/Logout: Users, once registered, should be able to log in to the website wi
 
 ## Running The Project
 
+### Database 
+
+Run the gogues.sql file to create and fill the gogues database. 
+
 ### Install dependencies ( Frontend and Backend)
 
 ` npm i` 
@@ -82,19 +87,23 @@ Login/Logout: Users, once registered, should be able to log in to the website wi
 
 
 ### Create your environment variables (Backend)
-Create (si tu parle du site: CREATES) a copy of the .env.sample file named .env :
+Create a copy of the .env.sample file named .env :
 
 `cp .env.sample .env`
 
 Then adjust variables in .env to match your own environment.
 
-### Run the app
+### Run the app (Backend)
 
 When developping, to automatically restart the server on file changes :
 
 `npm run dev`
 
 If you don't need automatic reloadings, you can just :
+
+`npm start`
+
+### Run the app (Frontend)
 
 `npm start`
 
