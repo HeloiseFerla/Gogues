@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
 import SUserBtn from './style';
 
-export default function UserBtn({ burgerOpen, className }) {
+export default function UserBtn({ burgerOpen, className, setModalLogin }) {
+  const handleClick = () => {
+    setModalLogin(true);
+  };
   return (
-    <SUserBtn burgerOpen={burgerOpen} className={className}>
+    <SUserBtn
+      burgerOpen={burgerOpen}
+      className={className}
+      onClick={handleClick}
+    >
       <svg
         aria-label="Icône connexion"
         aria-hidden="true"
@@ -27,8 +34,10 @@ export default function UserBtn({ burgerOpen, className }) {
 UserBtn.propTypes = {
   burgerOpen: PropTypes.bool,
   className: PropTypes.string,
+  setModalLogin: PropTypes.func,
 };
 UserBtn.defaultProps = {
   burgerOpen: false,
   className: '',
+  setModalLogin: () => {},
 };

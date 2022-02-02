@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import UserBtn from '../UserBtn';
 import SHome from './style';
 import Notes from '../Notes';
@@ -8,7 +9,7 @@ import restaurant from '../../assets/restaurant.svg';
 import location from '../../assets/location.svg';
 import building from '../../assets/building.svg';
 
-export default function Home() {
+export default function Home({ setModalLogin }) {
   return (
     <SHome>
       <section className="presentation">
@@ -58,9 +59,17 @@ export default function Home() {
         </article>
         <article>
           <h3>Donne ton avis </h3>
-          <UserBtn className="homeBtn" />
+          <UserBtn className="homeBtn" setModalLogin={setModalLogin} />
         </article>
       </section>
     </SHome>
   );
 }
+
+Home.propTypes = {
+  setModalLogin: PropTypes.func,
+};
+
+Home.defaultProps = {
+  setModalLogin: () => {},
+};

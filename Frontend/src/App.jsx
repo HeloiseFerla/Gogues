@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import { Reset } from 'styled-reset';
+import { useState } from 'react';
+import ModalLogin from 'components/ModalLogin';
 import GlobalStyle from './GlobalStyle';
 import Home from './components/Home';
 import Header from './components/Header';
@@ -9,13 +10,15 @@ import TopBtn from './components/TopBtn';
 import Footer from './components/Footer';
 
 function App() {
+  const [modalLogin, setModalLogin] = useState(false);
   return (
     <>
-      <Reset />
+      {console.log(modalLogin)}
       <GlobalStyle />
-      <Header />
+      <Header setModalLogin={setModalLogin} />
+      {modalLogin && <ModalLogin />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home setModalLogin={setModalLogin} />} />
         <Route path="restaurants" element={<Restaurants />} />
         <Route path="bars" element={<Bars />} />
       </Routes>

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import propTypes from 'prop-types';
 import NavMenu from './NavMenu';
 import Burger from './Burger';
 import UserBtn from '../UserBtn';
 import SHeader from './style';
 
-export default function Header() {
+export default function Header({ setModalLogin }) {
   const [burgerOpen, setBurgerOpen] = useState(false);
 
   return (
@@ -16,7 +17,14 @@ export default function Header() {
       </Link>
       <NavMenu burgerOpen={burgerOpen} />
       {burgerOpen ? <UserBtn burgerOpen={burgerOpen} /> : null}
-      <UserBtn burgerOpen={burgerOpen} />
+      <UserBtn burgerOpen={burgerOpen} setModalLogin={setModalLogin} />
     </SHeader>
   );
 }
+Header.propTypes = {
+  setModalLogin: propTypes.func,
+};
+
+Header.defaultProps = {
+  setModalLogin: () => {},
+};
