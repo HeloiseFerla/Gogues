@@ -24,7 +24,7 @@ inner join gogues.cities on restaurants.city = cities.name
 set restaurants.cityId = cities.id;
 SET SQL_SAFE_UPDATES=1;
 
-##Change cityId in foreign key
+## Change cityId in foreign key
 Alter Table restaurants
 Add constraint FK_restaurantcity
 foreign key (cityId) references cities(id);
@@ -35,7 +35,7 @@ FROM gogues_test.restaurants
 join cities on cityId = cities.id
 where cities.name = "Dabo";
 
-### delete city
+### Delete city
 ALTER TABLE restaurants
 DROP COLUMN city;
 
