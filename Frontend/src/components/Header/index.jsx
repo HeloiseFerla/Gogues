@@ -5,9 +5,11 @@ import NavMenu from './NavMenu';
 import Burger from './Burger';
 import UserBtn from '../UserBtn';
 import SHeader from './style';
+import ModalAccount from './ModalAccount';
 
-export default function Header({ setModalLogin }) {
+export default function Header({ setModalLogin, setMyAccount }) {
   const [burgerOpen, setBurgerOpen] = useState(false);
+  const [modalAccount, setModalAccount] = useState(false);
 
   return (
     <SHeader>
@@ -17,14 +19,26 @@ export default function Header({ setModalLogin }) {
       </Link>
       <NavMenu burgerOpen={burgerOpen} />
       {burgerOpen ? <UserBtn burgerOpen={burgerOpen} /> : null}
-      <UserBtn burgerOpen={burgerOpen} setModalLogin={setModalLogin} />
+      <UserBtn
+        burgerOpen={burgerOpen}
+        setModalLogin={setModalLogin}
+        setModalAccount={setModalAccount}
+      />
+      {modalAccount && (
+        <ModalAccount
+          setModalAccount={setModalAccount}
+          setMyAccount={setMyAccount}
+        />
+      )}
     </SHeader>
   );
 }
 Header.propTypes = {
   setModalLogin: propTypes.func,
+  setMyAccount: propTypes.func,
 };
 
 Header.defaultProps = {
   setModalLogin: () => {},
+  setMyAccount: () => {},
 };

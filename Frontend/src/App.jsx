@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { cookies, api } from 'conf';
 import axios from 'axios';
 import ModalLogin from 'components/ModalLogin';
+import MyAccount from 'components/MyAccount';
 import GlobalStyle from './GlobalStyle';
 import Home from './components/Home';
 import Header from './components/Header';
@@ -37,17 +38,24 @@ function App() {
       });
   }, []);
   const [modalLogin, setModalLogin] = useState(false);
+  const [myAccount, setMyAccount] = useState(false);
   return (
     <>
       <GlobalStyle />
-      <Header setModalLogin={setModalLogin} />
+      <Header setModalLogin={setModalLogin} setMyAccount={setMyAccount} />
       {modalLogin && <ModalLogin setModalLogin={setModalLogin} />}
+      {myAccount && <MyAccount setMyAccount={setMyAccount} />}
       <Routes>
         <Route
           path="/"
-          element={!modalLogin && <Home setModalLogin={setModalLogin} />}
+          element={
+            !modalLogin && !myAccount && <Home setModalLogin={setModalLogin} />
+          }
         />
-        <Route path="restaurants" element={<Restaurants />} />
+        <Route
+          path="restaurants"
+          element={!modalLogin && !myAccount ? <Restaurants /> : myAccount}
+        />
         <Route path="bars" element={<Bars />} />
       </Routes>
       <TopBtn />

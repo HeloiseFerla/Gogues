@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { api, cookies } from 'conf';
+import { useSelector } from 'react-redux';
 import SUserBtn from './style';
 
-export default function UserBtn({ burgerOpen, className, setModalLogin }) {
+export default function UserBtn({
+  burgerOpen,
+  className,
+  setModalLogin,
+  setModalAccount,
+}) {
   const showLogin = () => {
     setModalLogin(true);
   };
-  const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    cookies.set('token', null);
-    api.defaults.headers.authorization = null;
-    dispatch({ type: 'LOGOUT' });
+  const showModalAccount = () => {
+    setModalAccount(true);
   };
   const user = useSelector((state) => state.user);
   return (
@@ -20,7 +21,7 @@ export default function UserBtn({ burgerOpen, className, setModalLogin }) {
       burgerOpen={burgerOpen}
       className={className}
       isLogged={user.isLogged}
-      onClick={user.id ? handleLogout : showLogin}
+      onClick={user.id ? showModalAccount : showLogin}
     >
       <svg
         aria-label="Icône connexion"
@@ -46,9 +47,11 @@ UserBtn.propTypes = {
   burgerOpen: PropTypes.bool,
   className: PropTypes.string,
   setModalLogin: PropTypes.func,
+  setModalAccount: PropTypes.func,
 };
 UserBtn.defaultProps = {
   burgerOpen: false,
   className: '',
   setModalLogin: () => {},
+  setModalAccount: () => {},
 };

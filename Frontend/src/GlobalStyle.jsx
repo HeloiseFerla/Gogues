@@ -59,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   span,a,
-  p {
+  p,li {
     font-family: var(--font-text);
     line-height: 1.5rem;
   }
