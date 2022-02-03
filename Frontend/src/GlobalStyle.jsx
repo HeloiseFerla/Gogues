@@ -62,6 +62,7 @@ const GlobalStyle = createGlobalStyle`
   p,li {
     font-family: var(--font-text);
     line-height: 1.5rem;
+    font-size: 1.3rem;
   }
 
   button {

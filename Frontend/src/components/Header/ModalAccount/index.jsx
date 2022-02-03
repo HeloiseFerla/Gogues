@@ -8,6 +8,7 @@ export default function ModalAccount({ setModalAccount, setMyAccount }) {
 
   const showMyAccount = () => {
     setMyAccount(true);
+    setModalAccount(false);
   };
 
   const handleLogout = () => {

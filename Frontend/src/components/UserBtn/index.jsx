@@ -13,7 +13,7 @@ export default function UserBtn({
   };
 
   const showModalAccount = () => {
-    setModalAccount(true);
+    setModalAccount((prev) => !prev);
   };
   const user = useSelector((state) => state.user);
   return (
