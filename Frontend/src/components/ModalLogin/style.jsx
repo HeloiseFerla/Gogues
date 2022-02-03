@@ -34,7 +34,7 @@ const SModalLogin = styled.section`
     }
   }
 
-  article.log {
+  article {
     margin: 30px auto;
     form {
       display: flex;

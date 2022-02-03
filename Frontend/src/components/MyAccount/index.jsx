@@ -96,7 +96,6 @@ export default function MyAccount({ setMyAccount }) {
   };
   return (
     <SMyAccount>
-      {console.log(formData)}
       <button
         type="button"
         aria-label="cross"

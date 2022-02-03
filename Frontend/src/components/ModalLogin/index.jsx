@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Login from './Login';
 import Signup from './Signup';
 import SModalLogin from './style';
+import ResetPassword from './ResetPassword';
 
 export default function ModalLogin({ setModalLogin }) {
   const handleClick = () => {
@@ -19,6 +20,7 @@ export default function ModalLogin({ setModalLogin }) {
         <span />
       </button>
       <Login setModalLogin={setModalLogin} />
+      <ResetPassword />
       <Signup setModalLogin={setModalLogin} />
     </SModalLogin>
   );

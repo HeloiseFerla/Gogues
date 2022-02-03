@@ -87,7 +87,7 @@ export default function Signup({ setModalLogin }) {
     });
   };
   return (
-    <article className="log">
+    <article>
       <h2>PAS ENCORE DE COMPTE ? </h2>
       <form id="signup" onSubmit={handleSubmit}>
         <input

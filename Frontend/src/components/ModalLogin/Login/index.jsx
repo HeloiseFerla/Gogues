@@ -31,7 +31,7 @@ export default function Login({ setModalLogin }) {
   };
 
   return (
-    <article className="log">
+    <article>
       <h2>D&Eacute;JA UN COMPTE ? </h2>
       <form onSubmit={handleSubmit}>
         <input
