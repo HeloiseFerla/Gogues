@@ -16,17 +16,17 @@ passport.use(
         const [
           sqlRes,
         ] = await db.query(
-          'SELECT id, email, firstname, lastname, password, cityId, title FROM users WHERE email=?',
+          'SELECT users.id, email, firstname, lastname, password, cities.name as city, title FROM users JOIN cities on cities.id = users.cityId WHERE email=?',
           [formMail],
         );
         if (!sqlRes.length) return done(null, false);
         const {
-          id, email, firstname, lastname, password, cityId, title,
+          id, email, firstname, lastname, password, city, title,
         } = sqlRes[0];
         const isPasswordOK = bcrypt.compareSync(formPassword, password);
         if (!isPasswordOK) return done(null, false, 'Wrong password!');
         const user = {
-          id, email, firstname, lastname, cityId, title, isLogged: 1,
+          id, email, firstname, lastname, city, title, isLogged: 1,
         };
         return done(null, user);
       }
