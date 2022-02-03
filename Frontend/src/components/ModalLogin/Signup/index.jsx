@@ -1,19 +1,24 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { api, cookies } from 'conf';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default function Signup() {
+export default function Signup({ setModalLogin }) {
   const [search, setSearch] = useState([]);
   const [cities, setCities] = useState([]);
+  const [cityName, setCityName] = useState([]);
   const [autoResults, setAutoResults] = useState([]);
   const [form, setForm] = useState({
     email: '',
     password: '',
     firstname: '',
     lastname: '',
-    city: '',
-    title: '',
+    cityId: 0,
+    title: 0,
+    isLogged: 1,
   });
-
+  const dispatch = useDispatch();
   const handleChangeFormData = (e) => {
     const newData = { ...form };
     newData[e.target.name] = e.target.value;
@@ -22,9 +27,10 @@ export default function Signup() {
 
   const handleChangeFormCity = async (res) => {
     const newData = { ...form };
-    newData.city = res;
+    newData.cityId = res.id;
     await setForm(newData);
-    await setSearch(res);
+    await setSearch(res.name);
+    await setCityName(res.name);
     await setAutoResults([]);
   };
 
@@ -34,11 +40,10 @@ export default function Signup() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/cities`)
-
+      .get(`${process.env.REACT_APP_API_URL}/cities`)
       .then(({ data }) => {
         const tempcities = data.map((obj) => {
-          return obj.name;
+          return { name: obj.name, id: obj.id };
         });
         setCities([...tempcities]);
       })
@@ -48,21 +53,43 @@ export default function Signup() {
   }, []);
 
   useEffect(() => {
-    if (search.length && autoResults[0] && form.city === search) {
+    if (search.length && autoResults[0] && cityName === search) {
       setAutoResults([]);
     } else {
       setAutoResults(
-        cities.filter((name) =>
-          name.toUpperCase().includes(search.toUpperCase())
+        cities.filter((city) =>
+          city.name.toUpperCase().includes(search.toUpperCase())
         )
       );
     }
   }, [search]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password, firstname, lastname, cityId, title, isLogged } =
+      form;
+    const url = `${process.env.REACT_APP_API_URL}/auth/signup`;
+    const formData = {
+      email,
+      password,
+      firstname,
+      lastname,
+      cityId,
+      title,
+      isLogged,
+    };
+    axios.post(url, formData).then(({ data }) => {
+      const { token, user } = data;
+      cookies.set('token', token);
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      dispatch({ type: 'LOGIN', user });
+      setModalLogin(false);
+    });
+  };
   return (
     <article className="log">
       <h2>PAS ENCORE DE COMPTE ? </h2>
-      <form id="signup">
+      <form id="signup" onSubmit={handleSubmit}>
         <input
           type="email"
           value={form.email}
@@ -101,14 +128,14 @@ export default function Signup() {
         <ul>
           {autoResults.map((res) => {
             return (
-              <li key={res}>
+              <li key={res.id}>
                 <button
                   onClick={() => {
                     handleChangeFormCity(res);
                   }}
                   type="button"
                 >
-                  {res}
+                  {res.name}
                 </button>
               </li>
             );
@@ -136,9 +163,16 @@ export default function Signup() {
             &#9794;
           </label>
         </div>
-
         <input type="submit" value="Créer un compte" />
       </form>
     </article>
   );
 }
+
+Signup.propTypes = {
+  setModalLogin: PropTypes.func,
+};
+
+Signup.defaultProps = {
+  setModalLogin: () => {},
+};

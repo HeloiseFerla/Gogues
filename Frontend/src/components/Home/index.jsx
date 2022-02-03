@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import UserBtn from '../UserBtn';
 import SHome from './style';
 import Notes from '../Notes';
@@ -10,6 +11,7 @@ import location from '../../assets/location.svg';
 import building from '../../assets/building.svg';
 
 export default function Home({ setModalLogin }) {
+  const user = useSelector((state) => state.user);
   return (
     <SHome>
       <section className="presentation">
@@ -59,7 +61,11 @@ export default function Home({ setModalLogin }) {
         </article>
         <article>
           <h3>Donne ton avis </h3>
-          <UserBtn className="homeBtn" setModalLogin={setModalLogin} />
+          <UserBtn
+            className="homeBtn"
+            isLogged={user.isLogged}
+            setModalLogin={setModalLogin}
+          />
         </article>
       </section>
     </SHome>

@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 const SUserBtn = styled.button`
-  display: ${(p) => (p.burgerOpen || p.homeBtn ? 'flex' : '')};
+  ${(p) =>
+    p.burgerOpen &&
+    `display:flex;
+    ${p.isLogged && `display:none;`}
+    `}};
   background: var(--color-flash);
   color: white;
   width: ${(props) => (props.burgerOpen ? '150px' : '2.2rem')};
@@ -17,7 +21,7 @@ const SUserBtn = styled.button`
   right: 0px;
   z-index: 3;
   &.homeBtn {
-    display: flex;
+    display: ${(p) => (p.isLogged ? 'none' : 'flex')}; */
     width: 150px;
     height: 35px;
     margin: auto;

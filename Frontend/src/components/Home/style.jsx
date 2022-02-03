@@ -70,9 +70,6 @@ const SHome = styled.main`
         width: auto;
         margin: 1rem;
       }
-      .homeBtn {
-        display: flex;
-      }
       p {
         text-align: center;
       }

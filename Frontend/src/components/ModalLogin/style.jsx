@@ -5,6 +5,35 @@ const SModalLogin = styled.section`
   min-height: 100vh;
   width: 80vw;
   background: white;
+
+  .cross {
+    margin-left: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: none;
+    span {
+      display: block;
+      width: 2.4rem;
+      height: 0.2rem;
+      border-radius: 20px;
+      background: black;
+      position: relative;
+      :first-child {
+        transform-origin: left top;
+        transform: rotate(45deg);
+      }
+      :last-child {
+        transform-origin: left bottom;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
   article.log {
     margin: 30px auto;
     form {
